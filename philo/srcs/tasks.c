@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tasks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amenesca <amenesca@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/19 18:15:09 by amenesca          #+#    #+#             */
+/*   Updated: 2022/12/19 18:22:22 by amenesca         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosophers.h"
 
 void	get_fork(t_philo *philo)
@@ -38,18 +50,18 @@ void	is_sleep(t_philo *philo)
 	short_sleep(philo->data_ph->time_sleep, philo);
 }
 
-void    wait_release_philo(t_data *data)
+void	wait_release_philo(t_data *data)
 {
-    int    i;
+	int		i;
 
-    i = 0;
-    while (i < data->nbr_phil)
-    {
-        pthread_join(data->th[i], NULL);
-        pthread_mutex_destroy(&data->forks[i]);
-        i++;
-    }
-    free(data->th);
-    free(data->philos);
-    free(data->forks);
+	i = 0;
+	while (i < data->nbr_phil)
+	{
+		pthread_join(data->th[i], NULL);
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+	free(data->th);
+	free(data->philos);
+	free(data->forks);
 }

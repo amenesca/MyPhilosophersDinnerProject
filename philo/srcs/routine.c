@@ -1,14 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amenesca <amenesca@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/19 18:15:00 by amenesca          #+#    #+#             */
+/*   Updated: 2022/12/19 18:15:03 by amenesca         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosophers.h"
 
-void	*routine(void *argv)
+void	*routine(void *arg)
 {
 	t_philo	*philo;
 
-	philo = argv;
+	philo = arg;
 	philo->nbr_ate = 0;
+	if (philo->data_ph->nbr_phil == 1)
+	{
+		philo->fork_r = philo->ph_id % philo->data_ph->nbr_phil;
+		pthread_mutex_lock(&philo->data_ph->forks[philo->fork_r]);
+		msg(philo, "has taken a fork");
+		pthread_mutex_unlock(&philo->data_ph->forks[philo->fork_r]);
+		usleep(philo->data_ph->time_die * 1000);
+		msg(philo, "is dead");
+		philo->data_ph->finish = 1;
+	}
 	if (philo->ph_id % 2)
 		usleep(philo->data_ph->time_eat * 1000);
-	while (!philo->data_ph->finish)
+	while (!philo->data_ph->finish && philo->data_ph->nbr_phil != 1)
 	{
 		get_fork(philo);
 		is_eating(philo);

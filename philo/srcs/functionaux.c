@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   functionaux.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amenesca <amenesca@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/19 18:14:40 by amenesca          #+#    #+#             */
+/*   Updated: 2022/12/19 18:16:34 by amenesca         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/philosophers.h"
 
 unsigned long	time_ms(struct timeval time)
@@ -15,9 +27,9 @@ static int	check(int sign)
 
 int	ft_atoi(const char *str)
 {
-	int	    res;
+	int		res;
 	long	sign;
-	int 	x;
+	int		x;
 
 	res = 0;
 	sign = 1;
@@ -38,17 +50,6 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-int	ft_strisdigit(char *str)
-{
-	while (*str)
-    {
-        if (!(*str >= '0' && *str <= '9'))
-		    return (0);
-        str++;
-    }
-	return (1);
-}
-
 void	short_sleep(unsigned long time, t_philo *philo)
 {
 	unsigned long	start;
@@ -66,6 +67,6 @@ void	short_sleep(unsigned long time, t_philo *philo)
 		time_diff = start - before;
 		if (time_diff >= time)
 			break ;
-		usleep(48);
+		usleep(50);
 	}
 }
